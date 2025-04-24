@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>ModifyBoard</h1>
+	<form method="post" action="/modifyBoard">
+	<input type="hidden" name="bno" value="{{bno}}">
+		<div>
+			title : <input type="text" name="title" value="{{title}}">
+		</div>
+		<div>
+			pw : <input type="password" name="pw">
+		</div>
+		
+		<div>
+			<button type="submit">수정</button>
+		</div>
+		<a href="boardList">리스트</a>
+	</form>
+</body>
+</html>

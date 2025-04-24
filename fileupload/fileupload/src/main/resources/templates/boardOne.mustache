@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Board One</h1>
+	{{#msg}}
+		{{msg}}
+	{{/msg}}
+	<div>
+		{{boardMapping.bno}}<br>
+		{{boardMapping.title}}
+	</div>
+	<!-- board 수정 -->
+	<!-- board 삭제 : 1) 파일삭제 후 성공하면 board 삭제 -->
+	<div>
+		<a href="/modifyBoard?bno={{boardMapping.bno}}">[수정]</a>
+		<a href="/removeBoardForm?bno={{boardMapping.bno}}">[삭제]</a>
+	</div>
+	
+	<!-- 개별 파일 삭제 -->
+	<hr>
+	<div>
+		<h2>첨부파일</h2>
+		<div> 
+		{{#fileList}}
+			<a href="/upload/{{fname}}.{{fext}}" download="{{foriginname}}">{{foriginname}}</a>
+			<a href="/removeBoardfile?fno={{fno}}&bno={{bno}}">[파일삭제]</a>
+		{{/fileList}}
+		</div>
+	</div>
+	<a href="boardList">리스트</a>
+</body>
+</html>
