@@ -1,24 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <meta charset="UTF-8">
+  <title>게시글 수정</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      padding: 50px 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 28px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    div {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="hidden"] {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #fafafa;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #e0e0e0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #222;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #cccccc;
+    }
+
+    .link-back {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+      text-decoration: none;
+    }
+
+    .link-back:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-	<h1>ModifyBoard</h1>
-	<form method="post" action="/modifyBoard">
-	<input type="hidden" name="bno" value="{{bno}}">
-		<div>
-			title : <input type="text" name="title" value="{{title}}">
-		</div>
-		<div>
-			pw : <input type="password" name="pw">
-		</div>
-		
-		<div>
-			<button type="submit">수정</button>
-		</div>
-		<a href="boardList">리스트</a>
-	</form>
+  <h1>게시글 수정</h1>
+
+  <form method="post" action="/modifyBoard">
+    <input type="hidden" name="bno" value="{{bno}}">
+    
+    <div>
+      <label>제목</label>
+      <input type="text" name="title" value="{{title}}">
+    </div>
+
+    <div>
+      <label>비밀번호</label>
+      <input type="password" name="pw">
+    </div>
+
+    <div>
+      <button type="submit">수정</button>
+    </div>
+
+    <a class="link-back" href="boardList">← 리스트로 돌아가기</a>
+  </form>
 </body>
 </html>

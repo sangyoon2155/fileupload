@@ -1,36 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <meta charset="UTF-8">
+  <title>게시글 보기</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      padding: 50px 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 28px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .msg {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #4caf50;
+    }
+
+    .board-info {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+    }
+
+    .board-info span {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .action-buttons {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .action-buttons a {
+      display: inline-block;
+      margin: 0 15px;
+      padding: 12px 20px;
+      background-color: #e0e0e0;
+      color: #222;
+      font-size: 15px;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .action-buttons a:hover {
+      background-color: #cccccc;
+    }
+
+    .file-list {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .file-list a {
+      color: #007bff;
+      font-size: 16px;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+
+    .file-list a:hover {
+      text-decoration: underline;
+    }
+
+    .file-list .delete-file {
+      color: #f44336;
+      margin-left: 10px;
+      font-size: 14px;
+    }
+
+    .file-list .delete-file:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .back-button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      text-align: center;
+      background-color: #e0e0e0;
+      color: #222;
+      font-size: 15px;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      margin-top: 30px;
+    }
+
+    .back-button:hover {
+      background-color: #cccccc;
+    }
+  </style>
 </head>
 <body>
-	<h1>Board One</h1>
-	{{#msg}}
-		{{msg}}
-	{{/msg}}
-	<div>
-		{{boardMapping.bno}}<br>
-		{{boardMapping.title}}
-	</div>
-	<!-- board 수정 -->
-	<!-- board 삭제 : 1) 파일삭제 후 성공하면 board 삭제 -->
-	<div>
-		<a href="/modifyBoard?bno={{boardMapping.bno}}">[수정]</a>
-		<a href="/removeBoardForm?bno={{boardMapping.bno}}">[삭제]</a>
-	</div>
-	
-	<!-- 개별 파일 삭제 -->
-	<hr>
-	<div>
-		<h2>첨부파일</h2>
-		<div> 
-		{{#fileList}}
-			<a href="/upload/{{fname}}.{{fext}}" download="{{foriginname}}">{{foriginname}}</a>
-			<a href="/removeBoardfile?fno={{fno}}&bno={{bno}}">[파일삭제]</a>
-		{{/fileList}}
-		</div>
-	</div>
-	<a href="boardList">리스트</a>
+
+  <h1>게시글 보기</h1>
+
+  {{#msg}}
+    <div class="msg">{{msg}}</div>
+  {{/msg}}
+
+  <div class="board-info">
+    <p><span>게시글 번호:</span> {{boardMapping.bno}}</p>
+    <p><span>제목:</span> {{boardMapping.title}}</p>
+  </div>
+
+  <!-- 수정, 삭제 버튼 -->
+  <div class="action-buttons">
+    <a href="/modifyBoard?bno={{boardMapping.bno}}">[수정]</a>
+    <a href="/removeBoardForm?bno={{boardMapping.bno}}">[삭제]</a>
+  </div>
+
+  <!-- 첨부파일 리스트 -->
+  <div class="file-list">
+    <h2>첨부파일</h2>
+    {{#fileList}}
+      <div>
+        <a href="/upload/{{fname}}.{{fext}}" download="{{foriginname}}">{{foriginname}}</a>
+        <a class="delete-file" href="/removeBoardfile?fno={{fno}}&bno={{bno}}">[파일삭제]</a>
+      </div>
+    {{/fileList}}
+  </div>
+
+  <!-- 리스트로 돌아가기 버튼 -->
+  <a class="back-button" href="boardList">리스트</a>
+
 </body>
 </html>

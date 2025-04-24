@@ -6,6 +6,10 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,16 +110,29 @@ public class BoardController {
 		return "boardOne";
 	}
 	
-	@GetMapping({"/","/boardList"})
-	public String boardList(Model model) {
-		// 페이징
-		// sort : bno DESC
-		// pageRequest : 0, 10
-		// page<BoardMapping>
-		List<BoardMapping> list = boardRepository.findAllBy();
-		model.addAttribute("list", list);
-		return "boardList";
+	@GetMapping({"/", "/boardList"})
+	public String boardList(Model model,
+	                        @RequestParam(value = "currentPage", defaultValue = "0") int currentPage,
+	                        @RequestParam(value = "rowPerPage", defaultValue = "5") int rowPerPage) {
+
+	    // 정렬 기준: bno 내림차순
+	    Sort sort = Sort.by("bno").descending();
+	    Pageable pageable = PageRequest.of(currentPage, rowPerPage, sort);
+
+	    // Page<BoardMapping>으로 반환
+	    Page<BoardMapping> list = boardRepository.findAllBy(pageable);
+
+	    model.addAttribute("list", list.getContent()); // 실제 목록
+	    model.addAttribute("currentPage", list.getNumber());
+	    model.addAttribute("nextPage", list.getNumber() + 1);
+	    model.addAttribute("prePage", list.getNumber() - 1);
+	    model.addAttribute("isFirst", list.isFirst());
+	    model.addAttribute("hasNext", list.hasNext());
+	    model.addAttribute("totalPages", list.getTotalPages()-1);
+
+	    return "boardList";
 	}
+
 	
 	// 입력폼
 	@GetMapping("/addBoard")
